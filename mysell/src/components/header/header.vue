@@ -17,13 +17,26 @@
           <span class="text">{{seller.supports[0].description}}</span>
         </div>
       </div>
-      <div v-if="seller.supports" class="support-count">
+      <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{seller.supports.length}}个</span>
       </div>
     </div>
-    <div class="bulletin-wrapper">
-
+    <div class="bulletin-wrapper" @click="showDetail">
+      <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
     </div>
+    <div class="background">
+      <img :src="seller.avatar" width="100%" height="100%">
+    </div>
+    <div v-show="detailShow" class="detail">
+      <div class="detail-wrapper clear-fix">
+        <div class="detail-main"></div>
+      </div>
+      <div class="detail-close">
+        <i class="icon-close"></i>
+      </div>
+    </div>
+
   </div>
 
 </template>
@@ -36,6 +49,19 @@
     },
     created(){
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    data(){
+      return {
+        detailShow: false
+      }
+    },
+    methods: {
+      showDetail() {
+        this.detailShow = true
+      },
+      hideDetail(){
+        this.detailShow = false
+      }
     }
   };
 </script>
@@ -50,7 +76,6 @@
     .content-wrapper
       position: relative
       padding: 24px 12px 18px 24px
-      position: relative
       font-size: 0
       .avatar
         display: inline-block
@@ -109,14 +134,67 @@
         height: 24px
         line-height: 24px
         border-radius: 14px
-        background: rgba(0,0,0,0.2);
-        text-align:center
+        background: rgba(0, 0, 0, 0.2);
+        text-align: center
         .count
           font-size: 10px
-          vertical-align:top
+          vertical-align: top
         .icon-keyboard_arrow_right
           margin-left: 2px
           line-height: 24px
           font-size: 10px
+
+    .bulletin-wrapper
+      position: relative
+      height: 28px
+      line-height: 28px
+      padding: 0 22px 0 12px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      background: rgba(7, 17, 27, 0.5)
+      .bulletin-title
+        display: inline-block
+        vertical-align: top
+        margin-top: 8px
+        width: 22px
+        height: 12px
+        bg-image('bulletin')
+        background-size: 22px 12px
+        background-repeat: no-repeat
+      .bulletin-text
+        vertical-align: top
+        margin: 0 4px
+        font-size: 10px
+      .icon-keyboard_arrow_right
+        position: absolute
+        font-size: 10px
+        right: 12px
+        top: 8px
+
+    .background
+      position absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      z-index: -1
+      filter: blur(10px)
+    .detail
+      position: fixed
+      z-index: 100
+      height: 100%
+      width: 100%
+      overflow: hidden
+      background: rgba(7, 17, 27, 0.8);
+      top: 0
+      left: 0
+      .detail-wrapper
+        min-height: 100%
+        .detail-main
+          margin-top: 64px
+          padding-bottom: 64px
+
+
 
 </style>
