@@ -7,5 +7,4 @@ hotClient.subscribe(function (event) {
     window.location.reload()
   }
 })
-var a = [4, 5, 6];
-console.log(a instanceof Array);
+
